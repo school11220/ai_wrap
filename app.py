@@ -405,7 +405,7 @@ async def chat_turn(prompt: str, chat_history: List[Dict[str, str]], model: str,
 
 # ----------------- Build UI -----------------
 def create_ui():
-    with gr.Blocks() as app:
+    with gr.Blocks(title="EchoAI") as app:
         # wrapper HTML open
         gr.HTML("<div class='app-wrap'><div class='app'>", elem_id="app_open")
 
@@ -468,12 +468,7 @@ def main():
 
     port = int(os.environ.get("PORT", "7860"))
 
-    # Try to pass `title` only if launch supports it, otherwise omit.
-    import inspect
-    launch_sig = inspect.signature(app.launch)
-    launch_kwargs = dict(server_name="0.0.0.0", server_port=port, show_error=True, share=False, css=CUSTOM_CSS, favicon_path="echoai.png")
-    if "title" in launch_sig.parameters:
-        launch_kwargs["title"] = "EchoAI"
+    launch_kwargs = dict(server_name="0.0.0.0", server_port=port, show_error=True, share=False, favicon_path="echoai.png", css=CUSTOM_CSS)
 
     app.launch(**launch_kwargs)
 
